@@ -5,23 +5,20 @@ const connectDB = require("./config/db");
 
 const app = express();
 
-// ✅ FIX 1: Proper CORS (allow preflight OPTIONS)
+// ✅ Correct CORS setup (NO app.options)
 app.use(cors({
     origin: "*",
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"]
 }));
-
-// ✅ Extra safety for preflight
-app.options("*", cors());
 
 app.use(express.json());
 
 // DB Connection
 connectDB();
 
-// ✅ FIX 2: Correct route file name
-app.use("/api/contact", require("./routes/contactRoutes"));
+// Routes
+app.use("/api/contact", require("./routes/userRoutes"));
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
