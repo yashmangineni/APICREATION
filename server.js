@@ -3,6 +3,13 @@ const express = require("express");
 const connectDB = require("./config/db");
 
 const app = express();
+const cors = require("cors");
+
+app.use(cors({
+    origin: "*",   // later you can restrict to your React domain
+    methods: ["GET", "POST"],
+    allowedHeaders: ["Content-Type"]
+}));
 
 app.use(express.json());
 
